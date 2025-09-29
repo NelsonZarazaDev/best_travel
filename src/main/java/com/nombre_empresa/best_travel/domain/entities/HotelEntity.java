@@ -1,0 +1,31 @@
+package com.nombre_empresa.best_travel.domain.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Set;
+
+@Entity(name = "hotel")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+public class HotelEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(length = 50)
+    private String name;
+    @Column(length = 50)
+    private String address;
+    private Integer rating;
+    private BigDecimal price;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            mappedBy = "hotel")
+    private Set<ReservationEntity> reservation;
+}
